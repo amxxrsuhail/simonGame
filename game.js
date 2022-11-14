@@ -22,7 +22,7 @@ $(document).keydown(function () {
         playSound(userChosenColour);
         animatePress(userChosenColour);
 
-        checkAnswer(userClickedPattern.length-1);
+        checkAnswer(userClickedPattern.length - 1);
     });
 });
 // functions
@@ -34,8 +34,18 @@ function checkAnswer(index) {
         }
     }
     else {
-        $("h1").text(`GAME OVER!!!!`);
-       playSound("wrong");
+        $("h1").text("GAME OVER!!!! Press any key to continue");
+        playSound("wrong");
+        $("body").addClass("game-over");
+
+        setTimeout(removeFunction, 200)
+        function removeFunction() {
+            $("body").removeClass("game-over");
+        }
+
+        $(document).keyup(function(){
+              window.location.reload();
+          })
     }
 }
 
@@ -59,7 +69,7 @@ function playSound(name) {
 }
 
 function animatePress(currentColour) {
-    var pressedButton = $(`.${currentColour}`)
+    var pressedButton = $(`.${currentColour}`);
     pressedButton.addClass("pressed");
 
     setTimeout(removeFunction, 100)
